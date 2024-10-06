@@ -8,6 +8,19 @@ const duenosRoutes = (prisma: PrismaClient) => {
     const duenos = await prisma.dueno.findMany()
     res.json(duenos)
   })
+  router.get('/conMascotas', async (req, res) => {
+    const dueno = await prisma.dueno.findMany({
+      where: {
+        mascota: {
+          some: {}
+      }
+    },
+    include: {
+      mascota: true
+    }
+    })
+    res.json(dueno)
+  })
   router.post('/', async (req, res) => {
     const { nombre, apellido} = req.body
     const dueno = await prisma.dueno.create({
@@ -18,6 +31,7 @@ const duenosRoutes = (prisma: PrismaClient) => {
     })
     res.json(dueno)
   })
+
   return router
 }
 

@@ -13,7 +13,7 @@ model Dueno {
   id        Int      @id @default(autoincrement())
   nombre    String
   apellido  String
-  mascota   Mascota?
+  mascota   Mascota[]
 }
 
 model Mascota {
@@ -21,6 +21,6 @@ model Mascota {
   nombre   String
   raza     String
   dueno    Dueno    @relation(fields: [duenoId], references: [id])
-  duenoId  Int      @unique
+  duenoId  Int
 }
 
